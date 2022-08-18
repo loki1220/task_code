@@ -35,7 +35,7 @@ class _LogicalPageState extends State<LogicalPage> {
     final firstValue = TextFormField(
         autofocus: false,
         controller: valueController,
-        keyboardType: TextInputType.emailAddress,
+        keyboardType: TextInputType.number,
         textInputAction: TextInputAction.next,
         decoration: const InputDecoration(
           contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
@@ -50,7 +50,7 @@ class _LogicalPageState extends State<LogicalPage> {
     final secondValue = TextFormField(
         autofocus: false,
         controller: totalController,
-
+        keyboardType: TextInputType.number,
         textInputAction: TextInputAction.done,
         decoration: const InputDecoration(
           contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
@@ -97,45 +97,51 @@ class _LogicalPageState extends State<LogicalPage> {
 
 
     return Scaffold(
-      body: ListView(
-        children: [
-          const SizedBox(
-            height: 30,
-          ),
-          firstValue,
-          const SizedBox(
-            height: 30,
-          ),
-          secondValue,
-          const SizedBox(
-            height: 30,
-          ),
-          submitButton,
-          totalController.text.isEmpty? const SizedBox():
-          SizedBox(
-            height: 1000,
-            child: ListView.builder(
-              itemCount: int.parse(totalController.text),
-              itemBuilder: (context, index) {
-              return numberList[index]["name"].toString().contains(valueController.text)?
-              int.parse(numberList[index]["name"])%2==0?
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Text("${numberList[index]["name"]}",style: const TextStyle(
-                    color: Colors.blueAccent
-                  ),),
-                ],
-              ):
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Text("${numberList[index]["name"]}", style: const TextStyle(color: Colors.red),),
-                ],
-              ): Container();
-            },),
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 25.0),
+        child: ListView(
+          children: [
+            const SizedBox(
+              height: 30,
+            ),
+            firstValue,
+            const SizedBox(
+              height: 30,
+            ),
+            secondValue,
+            const SizedBox(
+              height: 30,
+            ),
+            submitButton,
+            totalController.text.isEmpty? const SizedBox():
+            SizedBox(
+              height: 1000,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 35.0 , vertical: 20.0),
+                child: ListView.builder(
+                  itemCount: int.parse(totalController.text),
+                  itemBuilder: (context, index) {
+                  return numberList[index]["name"].toString().contains(valueController.text)?
+                  int.parse(numberList[index]["name"])%2==0?
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text("${numberList[index]["name"]}",style: const TextStyle(
+                        color: Colors.blueAccent
+                      ),),
+                    ],
+                  ):
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text("${numberList[index]["name"]}", style: const TextStyle(color: Colors.red),),
+                    ],
+                  ): Container();
+                },),
+              ),
+            ),
+          ],
+        ),
       ),
       
       
